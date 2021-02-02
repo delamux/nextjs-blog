@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import MainLayout from '@layouts/main'
 import { getAllPostIds, getPostData } from '@lib/posts'
@@ -13,6 +14,9 @@ import { getAllPostIds, getPostData } from '@lib/posts'
 export default function Post({ postData }) {
   return (
     <MainLayout>
+      <Head>
+        <title>{postData.title}</title>
+      </Head>
       <h3>{postData.title}</h3>
       <br />
       {postData.date}
