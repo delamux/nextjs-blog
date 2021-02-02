@@ -1,13 +1,20 @@
 import Head from 'next/head'
-import { GetStaticProps } from 'next'
+import Link from 'next/link'
+import { GetStaticProps, InferGetStaticPropsType } from 'next'
 
 import Layout, { siteTitle } from '@layouts/main'
 import utilStyles from '@styles/utils.module.scss'
 import { getSortedPostsData } from 'lib/posts'
+type Post = {
+  id: string
+  date: Date
+  title: string
+}
 
 export const getStaticProps: GetStaticProps = async (context) => {
   // ABOUT context https://nextjs.org/docs/basic-features/data-fetching
-  const allPostsData = await getSortedPostsData()
+  const allPostsData: Post[] = await getSortedPostsData()
+
   return {
     props: {
       allPostsData,
@@ -15,7 +22,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-export const Home = ({ allPostsData }): JSX.Element => (
+export const Home = ({
+  allPostsData,
+}: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element => (
   <Layout home>
     <Head>
       <title>{siteTitle}</title>
@@ -36,7 +45,7 @@ export const Home = ({ allPostsData }): JSX.Element => (
       <ul className={utilStyles.list}>
         {allPostsData.map(({ id, date, title }) => (
           <li className={utilStyles.listItem} key={id}>
-            {title}
+            <Link href={`/posts/${id}`}>{title}</Link>
             <br />
             {id}
             <br />

@@ -3,7 +3,7 @@ import styles from './main.module.scss'
 import utilStyles from '@styles/utils.module.scss'
 import Link from 'next/link'
 
-const name = 'Luis del Amo'
+const name = `I'm Luis and I ❤️ programming`
 export const siteTitle = 'Next.js Sample Website'
 
 interface ILayout {
